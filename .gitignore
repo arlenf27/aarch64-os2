@@ -1,0 +1,4 @@
+virt.dtb
+*.swp
+*.elf
+*.o
