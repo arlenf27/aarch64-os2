@@ -4,7 +4,7 @@ ENTRY(_start)
 
 SECTIONS { 
 	
-	/* Common QEMU 'virt' RAM base: 0x40000000 is typical. If QEMU uses another base, adjust. */ 
+	/* QEMU RAM base: 0x40000000 */ 
 	
 	. = 0x40000000;
 	
@@ -20,7 +20,7 @@ SECTIONS {
 	
 	__bss_end = .;
 
-	/* Reserve stack space at top of image (adjust size if you like) */  
+	/* Reserve stack space at top of image */  
 	
 	. = ALIGN(8);  
 	

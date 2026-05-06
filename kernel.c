@@ -1,9 +1,9 @@
-/* kernel.c - freestanding minimal kernel */ 
+/* kernel.c */ 
 
 #include <stdint.h> 
 #include <stddef.h>
 
-/* QEMU virt PL011 UART base. If nothing prints, try 0x09000000 or 0x09000000 (common). */ 
+/* QEMU virt PL011 UART base. See the VM's dtb file for more information on where this comes from */ 
 
 #define UART0_BASE 0x09000000UL 
 #define UART0_DR (*(volatile uint32_t*) (UART0_BASE + 0x00)) 
