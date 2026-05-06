@@ -8,3 +8,9 @@ qemu_run:
 
 qemu_dtb_dump:
 	qemu-system-aarch64 -machine virt,dumpdtb=virt.dtb -cpu max
+
+qemu_dtb_decompile:
+	dtc -I dtb -O dts -o virt.dts virt.dtb
+
+clean:
+	rm -f *.o *.elf *.dtb *.dts

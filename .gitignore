@@ -1,4 +1,5 @@
-virt.dtb
+*.dtb
+*.dts
 *.swp
 *.elf
 *.o

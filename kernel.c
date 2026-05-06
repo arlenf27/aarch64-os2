@@ -1,4 +1,4 @@
-/* kernel.c */ 
+/* kernel.c for Aarch64 */ 
 
 #include <stdint.h> 
 #include <stddef.h>
@@ -24,9 +24,22 @@ static void uart_puts(const char *s){
 	}	
 }
 
+/** Special function to read exception level */
+static unsigned int read_el(void) {
+	unsigned long el; /* CurrentEL is a 64-bit register */
+	/* Reads Aarch64 register CurrentEL and then places it into the C variable el */
+	asm volatile("mrs %0, CurrentEL" : "=r"(el));
+	/* CurrentEL register in Aarch64 is encoded as EL<<2 so shift right */
+	return (unsigned int) ((el >> 2) & 0x3);
+}
+
 /* Exported symbol called by boot.S */ 
 void kernel_main(void){  
 	uart_puts("Hello from AArch64 bare-metal kernel!\n");  
+	unsigned int el = read_el();
+	uart_puts("Current exception level (should be 1) is: ");
+	uart_putc('0' + (el & 0xF));
+	uart_puts("\n");
 	/* simple idle: wait for interrupts (low power) */ 
 	for (;;){
 		asm volatile("wfe");
