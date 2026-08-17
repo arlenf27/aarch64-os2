@@ -4,9 +4,11 @@ ENTRY(_start)
 
 SECTIONS { 
 	
-	/* QEMU RAM base: 0x40000000 */ 
-	
+	/* QEMU RAM base: 0x40000000, will reserve for DTB and leave 2 MiB */
 	. = 0x40000000;
+	__dtb_start = .;
+	
+	. = 0x40200000;
 	
 	.text : { *(.text) *(.text.*) }
 

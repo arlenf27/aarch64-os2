@@ -6,6 +6,8 @@
 
 /* Start function */
 _start: 
+	/* Save DTB pointer */
+	ldr x20, =__dtb_start
 
 	/* Load address of stack_top (from linker script) into x0 and set SP */ 
 	ldr x0, =stack_top 
@@ -81,6 +83,8 @@ el3_to_el1:
 	eret
 
 in_el1:
+	/* Move DTB pointer to x0 */
+	mov x0, x20
 	/* Call C kernel entry */
 	bl kernel_main		
  	

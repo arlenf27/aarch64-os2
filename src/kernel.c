@@ -3,7 +3,7 @@
 #include <stdint.h> 
 #include <stddef.h>
 
-/* QEMU virt PL011 UART base. See the VM's dtb file for more information on where this comes from */ 
+/* TODO: DELETE THESE UART DEFINES AFTER IMPLEMENTING DTB PARSER - QEMU virt PL011 UART base. See the VM's dtb file for more information on where this comes from */ 
 
 #define UART0_BASE 0x09000000UL 
 #define UART0_DR (*(volatile uint32_t*) (UART0_BASE + 0x00)) 
@@ -34,7 +34,7 @@ static unsigned int read_el(void) {
 }
 
 /* Exported symbol called by boot.S */ 
-void kernel_main(void){  
+void kernel_main(void* dtb){  
 	uart_puts("Hello from AArch64 bare-metal kernel!\n");  
 	unsigned int el = read_el();
 	uart_puts("Current exception level (should be 1) is: ");
