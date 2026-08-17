@@ -4,7 +4,7 @@
 #include <stddef.h>
 #include "dtb.h"
 
-/* TODO: DELETE THESE UART DEFINES AFTER IMPLEMENTING DTB PARSER - QEMU virt PL011 UART base. See the VM's dtb file for more information on where this comes from */ 
+/* TODO: DELETE THESE UART DEFINES AFTER IMPLEMENTING DTB PARSER - QEMU virt PL011 UART base. */ 
 
 #define UART0_BASE 0x09000000UL 
 #define UART0_DR (*(volatile uint32_t*) (UART0_BASE + 0x00)) 
@@ -26,7 +26,7 @@ static void uart_puts(const char* s){
 }
 
 /** Special function to read exception level */
-static unsigned int read_el(void){
+static unsigned int read_el(){
 	unsigned long el; /* CurrentEL is a 64-bit register */
 	/* Reads Aarch64 register CurrentEL and then places it into the C variable el */
 	asm volatile("mrs %0, CurrentEL" : "=r"(el));
@@ -36,11 +36,7 @@ static unsigned int read_el(void){
 
 /* Exported symbol called by boot.S */ 
 void kernel_main(void* dtb){
-	// TODO: remove temporary debug code
-	dtb_header* dtbh = (dtb_header*) dtb;
-	uint32_t magic = dtbh->magic;
-	if(magic == DTB_MAGIC_LITTLE_ENDIAN) uart_puts("Correct DTB Magic Number. \n");
-
+	if(dtb_correct_magic(dtb)) uart_puts("Correct DTB Magic Number. \n");
 	uart_puts("Hello from AArch64 bare-metal kernel!\n");  
 	unsigned int el = read_el();
 	uart_puts("Current exception level is: ");

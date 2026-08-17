@@ -1,3 +1,6 @@
+#ifndef DTB_H
+#define DTB_H
+
 #include <stdint.h>
 
 #define DTB_MAGIC_LITTLE_ENDIAN 0xEDFE0DD0
@@ -14,3 +17,7 @@ typedef struct dtb_header{
 	uint32_t size_dt_strings;
 	uint32_t size_dt_struct;
 } dtb_header;
+
+uint8_t dtb_correct_magic(void* raw_dtb);
+
+#endif

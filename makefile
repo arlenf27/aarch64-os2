@@ -1,7 +1,7 @@
 qemu_build:
 	mkdir -p build
 	aarch64-none-elf-gcc --version
-	aarch64-none-elf-gcc -ffreestanding -fno-builtin -fno-stack-protector -fno-pie -fno-pic -Isrc/dtb -c src/boot.S src/kernel.c src/dtb/dtb.c
+	aarch64-none-elf-gcc -ffreestanding -fno-builtin -fno-stack-protector -fno-pie -fno-pic -Isrc -Isrc/dtb -c src/boot.S src/kernel.c src/utils.c src/dtb/dtb.c
 	mv *.o ./build/
 	aarch64-none-elf-ld -nostdlib -T linker/qemu_virt/linker.ld build/boot.o build/kernel.o build/dtb.o -o build/kernel.elf
 
