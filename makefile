@@ -1,9 +1,9 @@
 qemu_build:
 	mkdir -p build
 	aarch64-none-elf-gcc --version
-	aarch64-none-elf-gcc -ffreestanding -fno-builtin -fno-stack-protector -fno-pie -fno-pic -c src/boot.S -o build/boot.o
-	aarch64-none-elf-gcc -ffreestanding -fno-builtin -fno-stack-protector -fno-pie -fno-pic -c src/kernel.c -o build/kernel.o
-	aarch64-none-elf-ld -nostdlib -T qemu_virt/linker/linker.ld build/boot.o build/kernel.o -o build/kernel.elf
+	aarch64-none-elf-gcc -ffreestanding -fno-builtin -fno-stack-protector -fno-pie -fno-pic -Isrc/dtb -c src/boot.S src/kernel.c src/dtb/dtb.c
+	mv *.o ./build/
+	aarch64-none-elf-ld -nostdlib -T linker/qemu_virt/linker.ld build/boot.o build/kernel.o build/dtb.o -o build/kernel.elf
 
 qemu_run:
 	qemu-system-aarch64 -M virt -cpu cortex-a57 -m 1024 -nographic -serial mon:stdio -kernel build/kernel.elf
