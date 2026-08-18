@@ -18,6 +18,6 @@ typedef struct dtb_header{
 	uint32_t size_dt_struct;
 } dtb_header;
 
-uint8_t dtb_correct_magic(void* raw_dtb);
+uint8_t dtb_correct_magic(const void* raw_dtb);
 
 #endif

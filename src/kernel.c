@@ -36,7 +36,7 @@ static unsigned int read_el(){
 
 /* Exported symbol called by boot.S */ 
 void kernel_main(void* dtb){
-	if(dtb_correct_magic(dtb)) uart_puts("Correct DTB Magic Number. \n");
+	if(dtb_correct_magic((const void*) dtb)) uart_puts("Correct DTB Magic Number. \n");
 	uart_puts("Hello from AArch64 bare-metal kernel!\n");  
 	unsigned int el = read_el();
 	uart_puts("Current exception level is: ");

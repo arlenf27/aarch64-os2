@@ -3,6 +3,6 @@
 
 #include <stdint.h>
 
-static uint32_t big_endian_32(uint32_t n);
+uint32_t be32tole32(uint32_t n);
 
 #endif
