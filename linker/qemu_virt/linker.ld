@@ -4,6 +4,7 @@ ENTRY(_start)
 
 /* Define ELF segments */
 PHDRS{
+	read_seg PT_LOAD FLAGS(4); /* read(4) */
 	read_execute_seg PT_LOAD FLAGS(5); /* 5 = read (4) + execute (1) */
 	read_write_seg PT_LOAD FLAGS(6); /* 6 = read(4) + write(2) */
 }
@@ -15,10 +16,13 @@ SECTIONS{
 	__dtb_start = .;
 	
 	. = 0x40200000;
+
+	/* 16 entries * 128 bytes = 2048 as defined by Aarch64 */
+	.vectors : ALIGN(2048) { *(.vectors) *(.vectors.*) } : read_execute_seg
 	
 	.text : { *(.text) *(.text.*) } : read_execute_seg
 
-	.rodata : { *(.rodata) *(.rodata.*) } : read_execute_seg
+	.rodata : { *(.rodata) *(.rodata.*) } : read_seg
 
 	.data : { *(.data) *(.data.*) } : read_write_seg
 
