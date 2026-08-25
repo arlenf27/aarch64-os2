@@ -2,13 +2,14 @@
 
 /* TODO - exception vectors UNUSED currently and NOT loaded into VBAR_EL1! */
 
-.section .vectors
+/* "ax" explicitly means allocatable and executable, putting this here because
+   I am using .vectors and not .text */
+.section .vectors, "ax"
 .global exception_vectors
-.type exception_vectors, @object
+.type exception_vectors, @function
 
 exception_vectors:
 	/* Current EL with SP_EL0 */
-	.balign 128
 	b synchronous_handler_sp0
 	.balign 128
 	b irq_handler_sp0
