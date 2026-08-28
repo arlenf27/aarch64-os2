@@ -53,8 +53,8 @@ el2_to_el1:
 	ldr x0, =stack_top
 	/* SP_EL1 is a special register, so msr is used to move data here */
 	msr sp_el1, x0
-	/* Set return address to kernel_main (ELR_EL2) */
-	ldr x1, =kernel_main
+	/* Set return address to in_el1 (ELR_EL2) */
+	adr x1, in_el1
 	msr elr_el2, x1
 	/* Set SPSR_EL2 (saved PSTATE for ERET, controls target mode and interrupt mask): 
 		- mask interrupts (DAIF) and select EL1h on return
@@ -70,8 +70,8 @@ el3_to_el1:
 	ldr x0, =stack_top
 	/* SP_EL1 is a special register, so msr is used to move data here */
 	msr sp_el1, x0
-	/* Set return address to kernel_main (ELR_EL3) */
-	ldr x1, =kernel_main
+	/* Set return address to in_el1 (ELR_EL3) */
+	adr x1, in_el1
 	msr elr_el3, x1
 	/* Set SPSR_EL3 (saved PSTATE for ERET, controls target mode and interrupt mask): 
 		- mask interrupts (DAIF) and select EL1h on return
