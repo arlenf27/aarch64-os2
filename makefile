@@ -17,6 +17,9 @@ qemu_dtb_dump:
 qemu_dtb_decompile:
 	dtc -I dtb -O dts -o virt.dts virt.dtb
 
+qemu_device_help:
+	qemu-system-aarch64 -M virt -cpu cortex-a57 -m 1024 --device help
+
 clean:
 	rm -f build/*.o build/*.elf *.dtb *.dts
 	rm -rf build
