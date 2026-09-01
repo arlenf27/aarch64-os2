@@ -21,8 +21,8 @@ qemu_device_help:
 	qemu-system-aarch64 -M virt -cpu cortex-a57 -m 1024 --device help
 
 clean:
-	rm -f build/*.o build/*.elf *.dtb *.dts
-	rm -rf build
+	rm -f build/*.o build/*.elf *.dtb *.dts compile_commands.json
+	rm -rf build/ .cache/ .clangd/
 
 qemu_alternate_run_0:
 	qemu-system-aarch64 -M virt -cpu cortex-a53 -m 512 -nographic -serial mon:stdio -kernel build/kernel.elf
